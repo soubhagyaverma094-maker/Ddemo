@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Artist — Where Every Dish Is a Masterpiece</title>
+<meta name="description" content="The Artist — an artisanal kitchen serving soulful, handcrafted food. Book a table and taste the craft.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --char:#160F0B;         /* deep espresso base */
+  --char-2:#1E140D;
+  --panel:#251811;
+  --cream:#F5ECDD;        /* warm off-white text */
+  --cream-soft:#C9B79E;
+  --muted:#8C7A62;
+  --muted2:#A89178;
+  --terra:#C8531F;        /* terracotta */
+  --terra-deep:#9E3D14;
+  --gold:#D89B3C;         /* warm turmeric gold */
+  --gold-deep:#B37B20;
+  --chili:#D6402A;        /* appetizing red */
+  --line:rgba(216,155,60,.14);
+  --glass:rgba(245,236,221,.045);
+  --glass-brd:rgba(216,155,60,.22);
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Karla","Helvetica Neue",Arial,sans-serif;
+  --spring:cubic-bezier(.16,1,.3,1);
+  --shadow:0 30px 80px -30px rgba(0,0,0,.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--char);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--terra);color:#fff}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ambient warm glow */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambient .blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.18;will-change:transform}
+.ambient .b1{width:560px;height:560px;background:var(--terra);top:-160px;right:-120px;animation:d1 22s ease-in-out infinite alternate}
+.ambient .b2{width:460px;height:460px;background:var(--gold);bottom:-150px;left:-120px;animation:d2 26s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(-60px,80px) scale(1.15)}}
+@keyframes d2{to{transform:translate(70px,-60px) scale(1.1)}}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,64px);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);
+  background:rgba(22,15,11,.4);border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+nav.scrolled{background:rgba(22,15,11,.9);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--serif);font-weight:700;font-size:1.5rem;letter-spacing:.01em;display:flex;align-items:center;gap:11px}
+.brand .mark{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px 2px rgba(216,155,60,.6)}
+.brand em{font-style:italic;font-weight:500;color:var(--gold)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-soft);transition:color .3s}
+.nav-links a:hover{color:var(--cream)}
+.nav-cta{border:1px solid var(--glass-brd);padding:11px 22px;border-radius:40px;color:var(--cream)!important;
+  font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:.35s var(--spring);background:var(--glass)}
+.nav-cta:hover{background:var(--terra);border-color:var(--terra);color:#fff!important;transform:translateY(-2px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px}
+.nav-toggle span{width:24px;height:2px;background:var(--cream);transition:.3s}
+
+/* HERO scroll-scrub */
+#hero{position:relative;height:340vh;z-index:1;background:var(--char)}
+.hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--char)}
+#scrub{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,15,11,.55) 0%,rgba(22,15,11,.15) 28%,rgba(22,15,11,.35) 62%,rgba(22,15,11,.92) 90%,var(--char) 100%)}
+.scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--cream-soft);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase}
+.scroll-cue .bar{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
+.scroll-cue .bar::after{content:"";position:absolute;top:-44px;left:0;width:1px;height:44px;background:var(--gold);animation:cue 2s ease-in-out infinite}
+@keyframes cue{to{top:44px}}
+
+/* intro (below hero) */
+.intro{text-align:center;padding-top:clamp(70px,10vh,120px)}
+.intro-inner{max-width:840px;margin-inline:auto}
+.intro .eyebrow{justify-content:center}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(3.4rem,12vw,8rem);line-height:.94;letter-spacing:-.01em;margin-top:6px}
+.wordmark em{font-style:italic;color:var(--gold)}
+.intro-sub{margin-top:24px;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--cream-soft);max-width:600px;margin-inline:auto}
+.hero-actions{margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:44px;font-family:var(--sans);
+  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border:1px solid transparent;
+  transition:transform .35s var(--spring),background .35s,border-color .35s,box-shadow .35s;position:relative;overflow:hidden}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.btn-terra{background:var(--terra);color:#fff;box-shadow:0 16px 40px -14px rgba(200,83,31,.6)}
+.btn-terra:hover{background:var(--terra-deep);transform:translateY(-3px);box-shadow:0 22px 54px -14px rgba(200,83,31,.7)}
+.btn-ghost{background:var(--glass);color:var(--cream);border-color:var(--glass-brd);backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:var(--gold);transform:translateY(-3px)}
+
+/* sections */
+.section{position:relative;z-index:2;padding:clamp(80px,12vh,150px) clamp(20px,6vw,90px);max-width:1300px;margin:0 auto}
+.eyebrow{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600;display:inline-flex;align-items:center;gap:12px;margin-bottom:22px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
+.h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,5.5vw,4rem);line-height:1.04;letter-spacing:-.01em;max-width:16ch}
+.h2 em{font-style:italic;color:var(--gold)}
+.lead{color:var(--cream-soft);font-size:clamp(1rem,2.2vw,1.18rem);max-width:52ch;margin-top:20px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--spring),transform .9s var(--spring)}
+.reveal.in{opacity:1;transform:none}
+
+/* signature dish (feature) */
+.feat-dish{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+.feat-dish .media{border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:4/5}
+.feat-dish .media img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--spring)}
+.feat-dish .media:hover img{transform:scale(1.05)}
+.feat-dish .media.ph{background:linear-gradient(160deg,var(--panel),var(--char-2));display:flex;align-items:center;justify-content:center;color:var(--muted2);font-size:.9rem}
+
+
+/* menu cards — image + always-visible name/price bar */
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.dish{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);
+  cursor:pointer;transition:transform .5s var(--spring),box-shadow .5s var(--spring),border-color .5s;display:flex;flex-direction:column}
+.dish:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(216,155,60,.4)}
+.dish .thumb{position:relative;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(160deg,var(--char-2),var(--panel))}
+.dish .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--spring)}
+.dish:hover .thumb img{transform:scale(1.06)}
+.dish .info{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px}
+.dish .info .nm{font-family:var(--serif);font-size:1.18rem;color:var(--cream);line-height:1.15}
+.dish .info .nm small{display:block;font-family:var(--sans);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-soft);margin-top:3px;font-weight:500}
+.dish .info .price{font-family:var(--serif);font-size:1.15rem;color:var(--gold);font-weight:600;white-space:nowrap}
+.dish.ph .thumb{display:flex;align-items:center;justify-content:center}
+.dish.ph .thumb span{color:var(--muted2);font-size:.8rem;text-align:center;padding:12px}
+@media(max-width:860px){.menu-grid{grid-template-columns:1fr 1fr;gap:14px}.dish .info .nm{font-size:1.05rem}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-block:1px solid var(--line);padding:44px 0}
+.stats .stat{text-align:center}
+.stats .num{font-family:var(--serif);font-size:clamp(2rem,5vw,3rem);font-weight:600;line-height:1}
+.stats .num .a{color:var(--gold)}
+.stats .lab{margin-top:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-soft)}
+
+/* chefs / about split */
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-split .media{border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:3/4}
+.about-split .media img{width:100%;height:100%;object-fit:cover}
+.about-split .media.ph{background:linear-gradient(160deg,var(--panel),var(--char-2));display:flex;align-items:center;justify-content:center;color:var(--muted2);aspect-ratio:3/4}
+
+/* CTA */
+.cta-band{position:relative;z-index:2;margin:0 clamp(16px,4vw,60px);border-radius:30px;overflow:hidden;border:1px solid var(--glass-brd);
+  background:linear-gradient(135deg,var(--char-2),#2a1108);padding:clamp(50px,8vw,100px) clamp(28px,6vw,80px);text-align:center}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(200,83,31,.22),transparent 60%)}
+.cta-band > *{position:relative;z-index:2}
+.cta-band h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.02}
+.cta-band h2 em{font-style:italic;color:var(--gold)}
+.cta-band p{color:var(--cream-soft);margin-top:18px;font-size:1.1rem;max-width:46ch;margin-inline:auto}
+.cta-band .hero-actions{margin-top:36px}
+
+/* contact */
+#contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:56px}
+.contact-side .ci{display:flex;gap:16px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--line)}
+.contact-side .ci:last-child{border-bottom:none}
+.contact-side .ci .ico{width:44px;height:44px;flex:0 0 44px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:var(--glass)}
+.contact-side .ci .ico svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.7}
+.contact-side .ci .lab{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-soft);margin-bottom:5px}
+.contact-side .ci a,.contact-side .ci span{font-size:1.05rem;color:var(--cream)}
+.form .field{margin-bottom:20px}
+.form label{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-soft);margin-bottom:9px}
+.form input,.form select,.form textarea{width:100%;background:var(--glass);border:1px solid var(--glass-brd);border-radius:14px;padding:15px 18px;color:var(--cream);font-family:var(--sans);font-size:1rem;transition:border-color .3s,background .3s}
+.form input:focus,.form select,.form textarea:focus{outline:none;border-color:var(--gold);background:rgba(245,236,221,.07)}
+.form input::placeholder,.form textarea::placeholder{color:var(--muted2)}
+.form select{appearance:none;cursor:pointer}
+.form textarea{resize:vertical;min-height:110px}
+.form .err{color:var(--chili);font-size:.8rem;margin-top:7px;display:none}
+.form .err.show{display:block}
+.form-note{color:var(--cream-soft);font-size:.86rem;margin-top:16px;text-align:center}
+#form-ok{display:none;color:#7fd18a;font-size:.95rem;margin-top:14px;text-align:center}
+
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:50px clamp(20px,6vw,90px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;color:var(--cream-soft);font-size:.85rem}
+footer .brand{font-size:1.25rem}
+.to-top{position:fixed;bottom:26px;right:26px;z-index:40;width:48px;height:48px;border-radius:50%;background:var(--terra);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(20px) scale(.8);transition:.4s var(--spring);box-shadow:0 12px 30px -8px rgba(200,83,31,.6)}
+.to-top.show{opacity:1;transform:none}
+.to-top svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.4}
+
+@media(max-width:860px){
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(80vw,340px);background:var(--char-2);flex-direction:column;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .5s var(--spring);border-left:1px solid var(--line);z-index:60}
+  .nav-links.open{transform:none}
+  .nav-toggle{display:flex;z-index:61}
+  .feat-dish,.about-split,#contact .wrap{grid-template-columns:1fr;gap:36px}
+  .menu-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .stats{grid-template-columns:1fr 1fr;gap:34px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body><span id="top"></span>
+<div class="ambient"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<nav id="nav">
+  <a href="#top" class="brand"><span class="mark"></span>The&nbsp;<em>Artist</em></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#menu" data-nav>Menu</a>
+    <a href="#story" data-nav>Our Story</a>
+    <a href="#chefs" data-nav>Chefs</a>
+    <a href="#contact" class="nav-cta" data-nav>Book a table</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO scroll-scrub (video only) -->
+<header id="hero">
+  <div class="hero-sticky">
+    <canvas id="scrub"></canvas>
+    <div class="hero-veil"></div>
+    <div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="section intro" id="intro">
+  <div class="intro-inner reveal">
+    <span class="eyebrow">Artisanal Kitchen</span>
+    <h1 class="wordmark">The <em>Artist</em></h1>
+    <p class="intro-sub">Where every dish is handcrafted like a masterpiece — bold spice, live fire, and soul on every plate.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-terra" data-nav>Book a table <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#menu" class="btn btn-ghost" data-nav>See the menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE DISH -->
+<section class="section" id="signature">
+  <div class="feat-dish">
+    <div class="media reveal" id="slot-feast"><img src="assets/chicken-penne.webp" alt="The Artist signature feast"></div>
+    <div class="reveal">
+      <div class="eyebrow">The signature</div>
+      <h2 class="h2">A feast built to be <em>shared</em>.</h2>
+      <p class="lead">Our table spreads bring the whole kitchen to you — curries slow-cooked for hours, flaky parottas pulled by hand, and sides that steal the show. Come hungry, leave a regular.</p>
+      <div class="hero-actions" style="margin-top:30px">
+        <a href="#menu" class="btn btn-ghost" data-nav>Explore the menu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU GALLERY -->
+<section class="section" id="menu">
+  <div style="text-align:center">
+    <div class="eyebrow reveal" style="justify-content:center">The menu</div>
+    <h2 class="h2 reveal" style="max-width:none;margin-inline:auto">Handcrafted. <em>Every plate.</em></h2>
+    <p class="lead reveal" style="margin-inline:auto">A taste of what's cooking — from tandoor to table.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="dish reveal ph" id="slot-1"><div class="thumb"><span>Signature Curry — coming soon</span></div><div class="info"><div class="nm">Signature Curry</div></div></div>
+    <div class="dish reveal" id="slot-2"><div class="thumb"><img src="assets/img-001.webp" alt="Tandoori seekh skewer over fire" loading="lazy"></div><div class="info"><div class="nm">Paneer Kolhapuri<small>Fiery &amp; rich</small></div><div class="price">₹340</div></div></div></div>
+    <div class="dish reveal" id="slot-3"><div class="thumb"><img src="assets/img-002.webp" alt="Paneer Kolhapuri" loading="lazy"></div><div class="info"><div class="nm">The Artist Burger<small>Stacked high</small></div><div class="price">₹280</div></div></div></div>
+    <div class="dish reveal" id="slot-4"><div class="thumb"><img src="assets/img-003.webp" alt="Steaming hakka noodles" loading="lazy"></div><div class="info"><div class="nm">Hakka Noodles<small>Wok-tossed</small></div><div class="price">₹240</div></div></div></div>
+    <div class="dish reveal" id="slot-5"><div class="thumb"><img src="assets/img-004.webp" alt="Chef plating sauce art on a board" loading="lazy"></div><div class="info"><div class="nm">Curry &amp; Rice<small>Comfort bowl</small></div><div class="price">₹260</div></div></div></div>
+    <div class="dish reveal" id="slot-6"><div class="thumb"><img src="assets/img-005.webp" alt="Curry with steamed rice" loading="lazy"></div><div class="info"><div class="nm">Paneer Korma<small>Silky &amp; spiced</small></div><div class="price">₹330</div></div></div></div>
+    <div class="dish reveal" id="slot-7"><div class="thumb"><img src="assets/img-006.webp" alt="Tandoori tikka with mint chutney" loading="lazy"></div><div class="info"><div class="nm">Tandoori Tikka<small>Chef plated</small></div><div class="price">₹360</div></div></div></div>
+    <div class="dish reveal" id="slot-8"><div class="thumb"><img src="assets/img-007.webp" alt="Biryani with raita" loading="lazy"></div><div class="info"><div class="nm">Dum Biryani<small>Slow-cooked</small></div><div class="price">₹360</div></div></div></div>
+    <div class="dish reveal" id="slot-9"><div class="thumb"><img src="assets/img-008.webp" alt="Seekh kebab over live fire" loading="lazy"></div><div class="info"><div class="nm">Seekh Kebab<small>Live tandoor</small></div><div class="price">₹390</div></div></div></div>
+  </div>
+</section>
+
+<!-- STORY / STATS -->
+<section class="section" id="story">
+  <div class="reveal">
+    <div class="eyebrow">Our story</div>
+    <h2 class="h2">Cooking is our <em>art form</em>.</h2>
+    <p class="lead">We treat the kitchen like a studio. Every spice is a colour, every flame a brushstroke, every plate a canvas. What lands in front of you isn't just a meal — it's a piece of work we're proud to sign.</p>
+  </div>
+  <div class="stats reveal">
+    <div class="stat"><div class="num">50<span class="a">+</span></div><div class="lab">Signature dishes</div></div>
+    <div class="stat"><div class="num">100<span class="a">%</span></div><div class="lab">Made fresh daily</div></div>
+    <div class="stat"><div class="num">4.9<span class="a">★</span></div><div class="lab">Guest rating</div></div>
+    <div class="stat"><div class="num">1<span class="a">°</span></div><div class="lab">Live fire kitchen</div></div>
+  </div>
+</section>
+
+<!-- CHEFS -->
+<section class="section" id="chefs">
+  <div class="about-split">
+    <div class="media reveal" id="slot-chefs"><img src="assets/img-009.webp" alt="The Artist chef team" loading="lazy"></div>
+    <div class="reveal">
+      <div class="eyebrow">The artists</div>
+      <h2 class="h2">The hands behind the <em>craft</em>.</h2>
+      <p class="lead">Led by our head chef and a crew that treats every service like opening night. Decades of combined experience, one shared obsession: food that makes you close your eyes on the first bite.</p>
+      <div class="hero-actions" style="margin-top:30px">
+        <a href="#contact" class="btn btn-terra" data-nav>Meet us at the table <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band reveal">
+  <h2>Hungry <em>yet?</em></h2>
+  <p>Reserve your table and let us cook you something worth remembering.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn btn-terra" data-nav>Book a table <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="#" class="btn btn-ghost" id="waCta">Order on WhatsApp</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="reveal">
+    <div class="eyebrow">Book a table</div>
+    <h2 class="h2">Reserve your <em>seat</em>.</h2>
+  </div>
+  <div class="wrap">
+    <div class="contact-side reveal">
+      <div class="ci"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg></div><div><div class="lab">WhatsApp</div><a id="waLink" href="#" target="_blank" rel="noopener">+91 83599 22242</a><br><a href="https://wa.me/917224074444" target="_blank" rel="noopener">+91 72240 74444</a></div></div>
+      <div class="ci"><div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div><div><div class="lab">Email</div><a href="mailto:getmywebsite.in121@gmail.com">getmywebsite.in121@gmail.com</a></div></div>
+      <div class="ci"><div class="ico"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="lab">Find us</div><span>Add your address here</span></div></div>
+      <div class="ci"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="lab">Hours</div><span>Daily · 12pm–11pm</span></div></div>
+    </div>
+    <div class="form reveal" id="bookForm">
+      <div class="field"><label for="fname">Your name</label><input id="fname" type="text" placeholder="Full name"><div class="err">Please enter your name.</div></div>
+      <div class="field"><label for="fguests">Guests &amp; date</label><input id="fguests" type="text" placeholder="e.g. 4 guests, Fri 8pm"><div class="err">Please add guests &amp; time.</div></div>
+      <div class="field"><label for="foccasion">Occasion</label><select id="foccasion"><option value="" disabled selected>Select one…</option><option>Casual dining</option><option>Birthday</option><option>Anniversary</option><option>Business</option><option>Just hungry</option></select><div class="err">Please pick one.</div></div>
+      <div class="field"><label for="fmsg">Anything else</label><textarea id="fmsg" placeholder="Dietary needs, requests…"></textarea></div>
+      <button class="btn btn-terra" id="submitBtn" style="width:100%;justify-content:center">Book via WhatsApp <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <p class="form-note">Opens WhatsApp with your reservation ready to send.</p>
+      <div id="form-ok">Thanks — opening WhatsApp…</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#top" class="brand"><span class="mark"></span>The&nbsp;<em>Artist</em></a>
+  <span>© <span id="yr"></span> The Artist — Artisanal Kitchen</span>
+  <a href="#menu" data-nav>Menu</a>
+</footer>
+
+<div class="to-top" id="toTop"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+
+<script>
+var WA_NUMBER='918359922242'; // update to The Artist's WhatsApp
+document.getElementById('yr').textContent=new Date().getFullYear();
+document.getElementById('waLink').href='https://wa.me/'+WA_NUMBER;
+document.getElementById('waCta').href='https://wa.me/'+WA_NUMBER;
+document.getElementById('waCta').target='_blank';
+
+const FRAMES=["assets/img-010.webp","assets/img-011.webp","assets/img-012.webp","assets/img-013.webp","assets/img-014.webp","assets/img-015.webp","assets/img-016.webp","assets/img-017.webp","assets/img-018.webp","assets/img-019.webp","assets/img-020.webp","assets/img-021.webp","assets/img-022.webp","assets/img-023.webp","assets/img-024.webp","assets/img-025.webp","assets/img-026.webp","assets/img-027.webp","assets/img-028.webp","assets/img-029.webp","assets/img-030.webp","assets/img-031.webp","assets/img-032.webp","assets/img-033.webp","assets/img-034.webp","assets/img-035.webp","assets/img-036.webp","assets/img-037.webp","assets/img-038.webp","assets/img-039.webp","assets/img-040.webp","assets/img-041.webp","assets/img-042.webp","assets/img-043.webp","assets/img-044.webp","assets/img-045.webp","assets/img-046.webp","assets/img-047.webp","assets/img-048.webp","assets/img-049.webp","assets/img-050.webp","assets/img-051.webp","assets/img-052.webp","assets/img-053.webp","assets/img-054.webp","assets/img-055.webp","assets/img-056.webp","assets/img-057.webp","assets/img-058.webp","assets/img-059.webp","assets/img-060.webp","assets/img-061.webp","assets/img-062.webp","assets/img-063.webp","assets/img-064.webp","assets/img-065.webp","assets/img-066.webp","assets/img-067.webp","assets/img-068.webp","assets/img-069.webp","assets/img-070.webp","assets/img-071.webp","assets/img-072.webp","assets/img-073.webp","assets/img-074.webp","assets/img-075.webp","assets/img-076.webp","assets/img-077.webp","assets/img-078.webp","assets/img-079.webp"];
+
+/* HERO SCROLL SCRUB */
+(function(){
+  var canvas=document.getElementById('scrub'), ctx=canvas.getContext('2d');
+  var hero=document.getElementById('hero');
+  var imgs=[], loaded=0, total=FRAMES.length, ready=false;
+  for(var i=0;i<total;i++){(function(i){var im=new Image();im.onload=function(){loaded++;if(loaded===total){ready=true;draw(0);}};im.src=FRAMES[i];imgs[i]=im;})(i);}
+  function fit(){var d=Math.min(window.devicePixelRatio||1,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(d,0,0,d,0,0);if(ready)draw(cur);}
+  var cur=0,target=0,raf=null;
+  function draw(idx){idx=Math.max(0,Math.min(total-1,Math.round(idx)));var im=imgs[idx];if(!im||!im.complete)return;
+    var cw=innerWidth,ch=innerHeight,iw=im.naturalWidth,ih=im.naturalHeight;var s=Math.max(cw/iw,ch/ih);var w=iw*s,h=ih*s;
+    ctx.clearRect(0,0,cw,ch);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(im,(cw-w)/2,(ch-h)/2,w,h);}
+  function loop(){cur+=(target-cur)*0.18; if(ready)draw(cur);
+    if(Math.abs(target-cur)>0.01){raf=requestAnimationFrame(loop);}else{cur=target;if(ready)draw(cur);raf=null;}}
+  function onScroll(){
+    var rect=hero.getBoundingClientRect();var scrollable=hero.offsetHeight-innerHeight;
+    var p=Math.min(1,Math.max(0,(-rect.top)/scrollable));target=p*(total-1);
+    if(!raf)raf=requestAnimationFrame(loop);}
+  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',fit);fit();onScroll();
+})();
+
+/* nav + reveal */
+(function(){
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40);
+    document.getElementById('toTop').classList.toggle('show',scrollY>600);},{passive:true});
+  var toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+  toggle.addEventListener('click',function(){links.classList.toggle('open');});
+  document.querySelectorAll('[data-nav]').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');});});
+  document.getElementById('toTop').addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+
+/* form → WhatsApp */
+(function(){
+  var btn=document.getElementById('submitBtn');if(!btn)return;
+  function mark(el,ok){var e=el.parentNode.querySelector('.err');if(e)e.classList.toggle('show',!ok);}
+  btn.addEventListener('click',function(){
+    var name=document.getElementById('fname'),g=document.getElementById('fguests'),o=document.getElementById('foccasion'),msg=document.getElementById('fmsg');
+    var ok=true;
+    if(!name.value.trim()){mark(name,false);ok=false;}else mark(name,true);
+    if(!g.value.trim()){mark(g,false);ok=false;}else mark(g,true);
+    if(!o.value){mark(o,false);ok=false;}else mark(o,true);
+    if(!ok)return;
+    document.getElementById('form-ok').style.display='block';
+    var text=encodeURIComponent('Hi The Artist! I\'d like to book a table.\n\nName: '+name.value+'\nGuests & time: '+g.value+'\nOccasion: '+o.value+(msg.value?'\n\n'+msg.value:''));
+    setTimeout(function(){window.open('https://wa.me/'+WA_NUMBER+'?text='+text,'_blank');},600);
+  });
+})();
+</script>
+</body>
+</html>
